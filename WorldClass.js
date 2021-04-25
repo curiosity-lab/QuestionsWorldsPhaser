@@ -1,12 +1,12 @@
-class World1 extends Phaser.Scene {
+class WorldClass extends Phaser.Scene {
 	constructor(){
-		super({ key: 'World1' });
+		super({ key: 'WorldClass' });
     };
 
-    preload (){
+    preload_generic (network_str){
         console.log(this);
         this.load.setBaseURL('http://localhost:3000');
-        gamestate.world= "network_1"
+        gamestate.world= network_str;
         const backgroundImage= network[gamestate.world]["dir"]+network[gamestate.world]["background"];
         this.load.image("background",backgroundImage);
         Object.keys(network[gamestate.world]["concepts"]).forEach((elem)=> {
@@ -32,22 +32,13 @@ class World1 extends Phaser.Scene {
         Object.values(gamestate.questions).forEach((elem)=>{
             this.load.image(elem, "items/"+elem+"_he.png");
         });
-
-        this.load.audio("intro_specific_object", "items/sounds/intro_specific_object.wav" )
-        this.load.audio("introduction1", "items/sounds/introduction1.wav")
     };
 
-    create() {
+    create_generic() {
         this.finishedIntros= false; // make true for debugging 
         gamestate.finishedExplanation= false; // make true for debugging 
-        this.time.addEvent({
-            delay: 60000,
-            callback: ()=> {
-                console.log("move to next world")
-                /* this.scene.stop("World1")
-                this.scene.start("World2") */
-            }
-        });
+
+
 
         const screenHeight= window.innerHeight * window.devicePixelRatio;
         const screenWidth= window.innerWidth * window.devicePixelRatio;
@@ -55,8 +46,7 @@ class World1 extends Phaser.Scene {
             .setScale(screenWidth / 1068 ,screenHeight / 667);
 
         //not in networks.js. loading separately 
-        this.explanation= this.sound.add("intro_specific_object")
-        this.intro= this.sound.add("introduction1");
+        this.intro= this.sound.add("introduction");
         this.intro.on("complete", ()=>{
             this.finishedIntros=true;
         })
@@ -213,5 +203,3 @@ class World1 extends Phaser.Scene {
         }) */
     };
 };
-
-game.scene.add('World1', World1, true);

@@ -18,7 +18,7 @@ class World4 extends Phaser.Scene {
         gamestate.soundPlaying= false;
         gamestate.edges={};
         this.load.setBaseURL('http://localhost:3000');
-        gamestate.world= "network_4"
+        gamestate.world= "network_4";
         const backgroundImage= network[gamestate.world]["dir"]+network[gamestate.world]["background"];
         this.load.image("background",backgroundImage);
         Object.keys(network[gamestate.world]["concepts"]).forEach((elem)=> {

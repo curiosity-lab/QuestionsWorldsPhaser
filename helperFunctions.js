@@ -14,43 +14,32 @@ function displayQuestions(command){
     }
 }
 
+function displayChosenQuestion(question){
+    question.setVisible(true);
+}
+
 function hideQuestions(){
     displayQuestions(false);
 }
 
 function updateLocation(item, x, y, newX, newY){
-    item.setX
     const incline= 1/((newX-x)/(newY-y));
     const speedX= (newX-x)/incline;
     const speedY= (newY-y)/incline;
-    console.log(speedX, speedY)
-
-    if(item.x< newX){
-        item.x+= 0.02*speedX;
-    }
-    if(item.y< newY){
-        item.y+= 0.02*speedY;
-    }
-    else{
-        gamestate.selectedQuestion=item;
-    }
-    if(gamestate.move!=undefined){
-        gamestate.move[item.name][3]=false;
-    } 
+    item.x+= 0.05*speedX;
+    item.y+= 0.05*speedY;
 }
 
 function getKey(dict, val) {
     return Object.keys(dict).find(key => dict[key] === val);
   }
 
-/* 
-function playIntro(soundArray) {
-    soundArray[0].play();
-    soundArray.forEach(function(element, index, array){
-        console.log(soundArray[index + 1])
-        if (soundArray[index + 1]) {
-            soundArray[index].onStop.addOnce(function(){soundArray[index + 1].play();}, this);
+function remove(dict, item){
+    var newDict= {};
+    Object.keys(dict).forEach(elem=>{
+        if(elem!=item){
+            newDict[elem]= dict[elem];
         }
-    });
-} */
-
+    })
+    return newDict;
+}
